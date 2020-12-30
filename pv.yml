@@ -11,6 +11,8 @@ spec:
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
-  nfs:
-    server: 192.168.1.179
-    path: "/mnt/data/www"
+  # nfs:
+  #   server: 192.168.1.179
+  #   path: "/mnt/data/www"
+  hostPath:
+    path: "/mnt/www"
