@@ -16,11 +16,8 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:latest
-        name: nginx
-        env:
-        - name: NGINX_ENVSUBST_TEMPLATE_DIR
-          value: /usr/share/nginx/html/template
+      - image: jonathan74/nginx-php
+        name: j74-nginx-php
         ports:
         - containerPort: 80
           name: nginx
