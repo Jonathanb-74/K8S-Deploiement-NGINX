@@ -8,6 +8,7 @@ spec:
   selector:
     matchLabels:
       app: nginx
+  replicas: 1
   strategy:
     type: Recreate
   template:
@@ -24,6 +25,11 @@ spec:
         volumeMounts:
         - name: nginx-persistent-storage
           mountPath: /var/www/html
+        resources:
+          requests:
+            cpu: 0.5
+          limits:
+            cpu: 1
       volumes:
       - name: nginx-persistent-storage
         persistentVolumeClaim:
