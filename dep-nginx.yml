@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  # --> Nom de l'antité
   name: nginx-nginx
   labels:
     app: nginx
@@ -17,20 +18,26 @@ spec:
         app: nginx
     spec:
       containers:
+        # --> Selection de l'image à utiliser (URL: https://hub.docker.com/r/jonathan74/nginx-php) 
       - image: jonathan74/nginx-php
         name: j74-nginx-php
         ports:
+          # --> Définition du port d'exposition du conteneur
         - containerPort: 80
           name: nginx
         volumeMounts:
+          # --> Définition d'un point de montage dans le conteneur aunsi que son lien local (path) dans le conteneur
         - name: nginx-persistent-storage
           mountPath: /var/www/html
+        # --> Définition des ressources utilisables par le conteneur.
         resources:
           requests:
             cpu: 0.5
           limits:
+            # --> Le conteneur ne peut pas utiliser plus d'un CPU (virt). 
             cpu: 1
       volumes:
+      # --> Connexion de l'antité "pvc-nginx" (cf: pvc.yml) au point de montage interne au conteneur. (cf: ligne 30)
       - name: nginx-persistent-storage
         persistentVolumeClaim:
           claimName: pvc-nginx

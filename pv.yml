@@ -1,18 +1,22 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
+  # --> Nom de l'antité
   name: pv-nginx
   labels:
     type: local
 spec:
   storageClassName: pv-nginx
   capacity:
+    # --> Création d'un volume de 1Go
     storage: 1Gi
   accessModes:
+    # --> Autorisation de lecture et ecriture sur le volume
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   # nfs:
   #   server: 192.168.1.179
   #   path: "/mnt/data/www"
   hostPath:
+    # --> Chemin local de la machine hôte (worker) à partager avec les pods
     path: "/mnt/www"

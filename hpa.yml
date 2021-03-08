@@ -1,12 +1,16 @@
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
+  # --> Nom de l'antité
   name: auto-scale-nginx
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
     name: nginx-nginx
+  # --> Definition du nombre minimum de replicas en "basse utilisation".
   minReplicas: 2
+  # --> Definition du nombre maximum de replicas.
   maxReplicas: 10
+  # --> Confition(s) de recréation d'un POD.
   targetCPUUtilizationPercentage: 10
