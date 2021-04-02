@@ -23,7 +23,7 @@ spec:
         - containerPort: 80
           name: nginx
         volumeMounts:
-        - name: nginx-persistent-storage
+        - name: test
           mountPath: /var/www/html
         resources:
           requests:
@@ -31,6 +31,12 @@ spec:
           limits:
             cpu: 1
       volumes:
-      - name: nginx-persistent-storage
-        persistentVolumeClaim:
-          claimName: pvc-nginx
+      - name: test
+        flexVolume:
+          driver: "fstab/cifs"
+          fsType: "cifs"
+          secretRef:
+            name: "cifs-secret"
+          options:
+            networkPath: "//server/path"
+            mountOptions: "dir_mode=0755,file_mode=0644,noperm"
